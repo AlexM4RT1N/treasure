@@ -9,37 +9,44 @@ var getDistance = function (event, target) {
 };
 
 var getDistanceHint = function (distance) {
-  if (distance < 10) {
-  return "Обожжешься!";
-  } else if (distance < 20) {
-  return "Очень горячо";
-  } else if (distance < 40) {
-  return "Горячо";
-  } else if (distance < 80) {
-  return "Тепло";
-  } else if (distance < 160) {
-  return "Холодно";
-  } else if (distance < 320) {
-  return "Очень холодно";
+  if (distance < 17) {
+  return "Обожжешься! Осталось кликов: " + clicks;
+  } else if (distance < 30) {
+  return "Очень-очень горячо. Осталось кликов: " + clicks;
+} else if (distance < 50) {
+  return "Очень горячо. Осталось кликов: " + clicks;
+  } else if (distance < 100) {
+  return "Горячо. Осталось кликов: " + clicks;
+  } else if (distance < 180) {
+  return "Тепло. Осталось кликов: " + clicks;
+  } else if (distance < 290) {
+  return "Холодно. Осталось кликов: " + clicks;
+  } else if (distance < 420) {
+  return "Очень холодно. Осталось кликов: " + clicks;
+} else if (distance < 550) {
+  return "Очень-очень холодно. Осталось кликов: " + clicks;
   } else {
-  return "Замерзнешь!";
+  return "Замерзнешь!. Осталось кликов: " + clicks;
   }
 };
 
-var width = 390;
-var height = 390;
-var clicks = 0;
+var width = 1020;
+var height = 630;
+var clicks = 15;
 var target = {
   x: getRandomNumber(width),
   y: getRandomNumber(height)
 };
 
 $("#map").click(function (event) {
-  clicks++;
+  clicks--;
   var distance = getDistance(event, target);
   var distanceHint = getDistanceHint(distance);
   $("#distance").text(distanceHint);
-  if (distance < 8) {
-    alert("Клад найден! Сделано кликов: " + clicks);
+  if (clicks <= 0) {
+    alert("КОНЕЦ ИГРЫ!");
+  } else if (distance < 8) {
+    alert("Клад найден! Осталось кликов: " + clicks);
   }
+
 });
